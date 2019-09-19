@@ -1,5 +1,6 @@
-# Introduction
-
+# Cross-Lingual Abstractive Sentence Summarization(CL-ASSUM)
+## Introduction
+We implemented CL-ASSUM on [fairseq](https://github.com/pytorch/fairseq/).
 
 # Requirements and Installation
 
@@ -7,7 +8,9 @@
 # License
 
 
-# Credits
+# Reference
+If you fine CL-ASSUM useful in your work, you can cite this paper as below:
+
 ```
 @inproceedings{duan-etal-2019-zero,
     title = "Zero-Shot Cross-Lingual Abstractive Sentence Summarization through Teaching Generation and Attention",
