@@ -1,14 +1,21 @@
 # Cross-Lingual Abstractive Sentence Summarization(CL-ASSUM)
 ## Introduction
-We implemented CL-ASSUM on [fairseq](https://github.com/pytorch/fairseq/).
+We implemented CL-ASSUM on [fairseq](https://github.com/pytorch/fairseq/). In our paper, we mentioned three methods for CL-ASSUM.    
 
-# Requirements and Installation
+1. Teaching Generation
+2. Teaching Attention
+3. Teaching Generation + Attention
+
+## Requirements and Installation
+* A [PyTorch installation](http://pytorch.org/)
+* For training new models, you'll also need an NVIDIA GPU and [NCCL](https://github.com/NVIDIA/nccl)
+* Python version 3.6
+* PyTorch version >= 0.4.0.
+
+## License
 
 
-# License
-
-
-# Reference
+## Reference
 If you fine CL-ASSUM useful in your work, you can cite this paper as below:
 
 ```
