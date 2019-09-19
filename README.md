@@ -6,13 +6,17 @@ We implemented CL-ASSUM on [fairseq](https://github.com/pytorch/fairseq/). In ou
 2. Teaching-Attention
 3. Teaching-Generation-Attention
 
-So far, we have only updated the code of teaching-generation, and the other code will be updated soon.
+So far, we have only updated the code of teaching-generation, and others code will be updated soon.
 
 ## Requirements and Installation
 * A [PyTorch installation](http://pytorch.org/)
 * For training new models, you'll also need an NVIDIA GPU and [NCCL](https://github.com/NVIDIA/nccl)
 * Python version 3.6
 * PyTorch version >= 0.4.0.
+
+## Cross-Lingual Test Set
+In our experiments, we manually translate the English sentences into the Chinese sentences for the validation and evaluation sets of Gigaword and DUC2004.    
+
 
 ## License
 
