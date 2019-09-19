@@ -2,9 +2,11 @@
 ## Introduction
 We implemented CL-ASSUM on [fairseq](https://github.com/pytorch/fairseq/). In our paper, we mentioned three methods for CL-ASSUM.    
 
-1. Teaching Generation
-2. Teaching Attention
-3. Teaching Generation + Attention
+1. Teaching-Generation
+2. Teaching-Attention
+3. Teaching-Generation-Attention
+
+So far, we have only updated the code of teaching-generation, and the other code will be updated soon.
 
 ## Requirements and Installation
 * A [PyTorch installation](http://pytorch.org/)
