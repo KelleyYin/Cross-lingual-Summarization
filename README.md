@@ -22,7 +22,7 @@ In our experiments, we manually translate the English sentences into the Chinese
 
 
 ## Reference
-If you fine CL-ASSUM useful in your work, you can cite this paper as below:
+If you find CL-ASSUM useful in your work, you can cite this paper as below:
 
 ```
 @inproceedings{duan-etal-2019-zero,
