@@ -1,0 +1,192 @@
+nohup: ignoring input
+| distributed init (rank 4): tcp://localhost:15212
+| distributed init (rank 1): tcp://localhost:15212
+| distributed init (rank 2): tcp://localhost:15212
+| distributed init (rank 3): tcp://localhost:15212
+| distributed init (rank 0): tcp://localhost:15212
+Namespace(adam_betas='(0.9, 0.98)', adam_eps=1e-08, adaptive_softmax_cutoff=None, arch='transformer', attention_dropout=0.0, clip_norm=0.0, criterion='label_smoothed_cross_entropy', data='/data2/mmyin/data-raw/summ/tsinghua/lcsts-32k-joint', decoder_attention_heads=8, decoder_embed_dim=512, decoder_embed_path=None, decoder_ffn_embed_dim=2048, decoder_layers=6, decoder_learned_pos=False, decoder_normalize_before=False, device_id=0, distributed_backend='nccl', distributed_init_method='tcp://localhost:15212', distributed_port=-1, distributed_rank=0, distributed_world_size=5, dropout=0.3, encoder_attention_heads=8, encoder_embed_dim=512, encoder_embed_path=None, encoder_ffn_embed_dim=2048, encoder_layers=6, encoder_learned_pos=False, encoder_normalize_before=False, fix_dec_emb=False, fix_enc_emb=False, fp16=False, keep_interval_updates=-1, label_smoothing=0.1, left_pad_source='True', left_pad_target='False', log_format=None, log_interval=1000, lr=[0.0005], lr_scheduler='inverse_sqrt', lr_shrink=0.1, max_epoch=0, max_sentences=None, max_sentences_valid=None, max_source_positions=1024, max_target_positions=1024, max_tokens=5500, max_update=0, min_loss_scale=0.0001, min_lr=1e-09, momentum=0.99, no_epoch_checkpoints=False, no_progress_bar=False, no_save=False, no_token_positional_embeddings=False, optimizer='adam', raw_text=False, relu_dropout=0.0, restore_file='checkpoint_last.pt', save_dir='checkpoints/tsinghua/tmp', save_interval=1, save_interval_updates=0, seed=1, sentence_avg=False, share_all_embeddings=True, share_decoder_input_output_embed=False, skip_invalid_size_inputs_valid_test=False, source_lang='src', target_lang='tgt', task='translation', train_subset='train', update_freq=[1], valid_subset='valid', validate_interval=1, warmup_init_lr=1e-07, warmup_updates=5000, weight_decay=0.0)
+| [src] dictionary: 48608 types
+| [tgt] dictionary: 48608 types
+| /data2/mmyin/data-raw/summ/tsinghua/lcsts-32k-joint train 2400591 examples
+| /data2/mmyin/data-raw/summ/tsinghua/lcsts-32k-joint valid 8685 examples
+TransformerModel(
+  (encoder): TransformerEncoder(
+    (embed_tokens): Embedding(48608, 512, padding_idx=1)
+    (embed_positions): SinusoidalPositionalEmbedding()
+    (layers): ModuleList(
+      (0): TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (layer_norms): ModuleList(
+          (0): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+          (1): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (layer_norms): ModuleList(
+          (0): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+          (1): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (layer_norms): ModuleList(
+          (0): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+          (1): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (3): TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (layer_norms): ModuleList(
+          (0): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+          (1): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (4): TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (layer_norms): ModuleList(
+          (0): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+          (1): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (5): TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (layer_norms): ModuleList(
+          (0): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+          (1): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (decoder): TransformerDecoder(
+    (embed_tokens): Embedding(48608, 512, padding_idx=1)
+    (embed_positions): SinusoidalPositionalEmbedding()
+    (layers): ModuleList(
+      (0): TransformerDecoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (self_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (encoder_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (encoder_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (final_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+      )
+      (1): TransformerDecoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (self_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (encoder_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (encoder_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (final_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+      )
+      (2): TransformerDecoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (self_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (encoder_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (encoder_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (final_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+      )
+      (3): TransformerDecoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (self_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (encoder_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (encoder_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (final_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+      )
+      (4): TransformerDecoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (self_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (encoder_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (encoder_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (final_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+      )
+      (5): TransformerDecoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (self_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (encoder_attn): MultiheadAttention(
+          (out_proj): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (encoder_attn_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+        (fc1): Linear(in_features=512, out_features=2048, bias=True)
+        (fc2): Linear(in_features=2048, out_features=512, bias=True)
+        (final_layer_norm): LayerNorm(torch.Size([512]), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+)
+| model transformer, criterion LabelSmoothedCrossEntropyCriterion
+| num. model params: 69025792
+| training on 5 GPUs
+| max tokens per GPU = 5500 and max sentences per GPU = None
+| epoch 001:   1000 / 6099 loss=12.884, nll_loss=12.427, ppl=5504.91, acc=10.28, wps=14608, ups=3.0, wpb=4691, bsz=394, num_updates=1001, lr=0.00010018, gnorm=1.508, clip=100%, oom=0, wall=338
+| epoch 001:   2000 / 6099 loss=12.050, nll_loss=11.462, ppl=2821.60, acc=12.17, wps=14530, ups=3.0, wpb=4682, bsz=394, num_updates=2001, lr=0.00020016, gnorm=1.399, clip=100%, oom=0, wall=661
+| epoch 001:   3000 / 6099 loss=11.397, nll_loss=10.707, ppl=1671.91, acc=13.94, wps=14517, ups=3.0, wpb=4684, bsz=394, num_updates=3001, lr=0.00030014, gnorm=1.310, clip=100%, oom=0, wall=985
+| epoch 001:   4000 / 6099 loss=10.882, nll_loss=10.110, ppl=1105.33, acc=15.7, wps=14510, ups=3.1, wpb=4681, bsz=394, num_updates=4001, lr=0.00040012, gnorm=1.252, clip=100%, oom=0, wall=1307
+| epoch 001:   5000 / 6099 loss=10.466, nll_loss=9.628, ppl=791.18, acc=17.4, wps=14497, ups=3.1, wpb=4679, bsz=394, num_updates=5001, lr=0.00049995, gnorm=1.223, clip=100%, oom=0, wall=1631
+| epoch 001:   6000 / 6099 loss=10.109, nll_loss=9.214, ppl=594.00, acc=19.14, wps=14509, ups=3.1, wpb=4680, bsz=394, num_updates=6001, lr=0.000456397, gnorm=1.209, clip=100%, oom=0, wall=1952
+| epoch 001 | loss 10.076 | nll_loss 9.177 | ppl 578.67 | acc 19.31 | wps 14506 | ups 3.1 | wpb 4679 | bsz 394 | num_updates 6099 | lr 0.000452716 | gnorm 1.208 | clip 100% | oom 0 | wall 1984
+| epoch 001 | valid on 'valid' subset | valid_loss 8.06991 | acc 31.55 | valid_nll_loss 6.73704 | valid_ppl 106.67 | num_updates 6099
+| epoch 002:   1000 / 6099 loss=7.792, nll_loss=6.536, ppl=92.82, acc=32.06, wps=14494, ups=3.1, wpb=4655, bsz=394, num_updates=7100, lr=0.000419591, gnorm=1.207, clip=100%, oom=0, wall=2311
+| epoch 002:   2000 / 6099 loss=7.664, nll_loss=6.391, ppl=83.90, acc=33.21, wps=14507, ups=3.1, wpb=4668, bsz=393, num_updates=8100, lr=0.000392837, gnorm=1.205, clip=100%, oom=0, wall=2634
+| epoch 002:   3000 / 6099 loss=7.551, nll_loss=6.262, ppl=76.76, acc=34.2, wps=14566, ups=3.1, wpb=4687, bsz=394, num_updates=9100, lr=0.000370625, gnorm=1.198, clip=100%, oom=0, wall=2955
+| epoch 002:   4000 / 6099 loss=7.459, nll_loss=6.159, ppl=71.44, acc=34.99, wps=14600, ups=3.1, wpb=4686, bsz=394, num_updates=10100, lr=0.000351799, gnorm=1.192, clip=100%, oom=0, wall=3274
+| epoch 002:   5000 / 6099 loss=7.383, nll_loss=6.073, ppl=67.30, acc=35.65, wps=14590, ups=3.1, wpb=4685, bsz=394, num_updates=11100, lr=0.000335578, gnorm=1.187, clip=100%, oom=0, wall=3596
+| epoch 002:   6000 / 6099 loss=7.317, nll_loss=5.998, ppl=63.92, acc=36.2, wps=14569, ups=3.1, wpb=4680, bsz=394, num_updates=12100, lr=0.000321412, gnorm=1.177, clip=100%, oom=0, wall=3917
+| epoch 002 | loss 7.311 | nll_loss 5.992 | ppl 63.63 | acc 36.25 | wps 14564 | ups 3.1 | wpb 4679 | bsz 394 | num_updates 12198 | lr 0.000320118 | gnorm 1.176 | clip 100% | oom 0 | wall 3949
+| epoch 002 | valid on 'valid' subset | valid_loss 7.16504 | acc 39.58 | valid_nll_loss 5.67031 | valid_ppl 50.93 | num_updates 12198 | best 7.16504
+| epoch 003:   1000 / 6099 loss=6.797, nll_loss=5.409, ppl=42.50, acc=40.34, wps=14602, ups=2.9, wpb=4710, bsz=394, num_updates=13199, lr=0.00030774, gnorm=1.167, clip=100%, oom=0, wall=4290
+| epoch 003:   2000 / 6099 loss=6.773, nll_loss=5.382, ppl=41.71, acc=40.57, wps=14562, ups=3.0, wpb=4688, bsz=394, num_updates=14199, lr=0.000296706, gnorm=1.159, clip=100%, oom=0, wall=4611
+Killed
