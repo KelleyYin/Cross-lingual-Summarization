@@ -1,27 +1,46 @@
 # Introduction
 
-Fairseq(-py) is a sequence modeling toolkit that allows researchers and developers to train custom models for translation, summarization, language modeling and other text generation tasks. It provides reference implementations of various sequence-to-sequence models, including:
-- **Convolutional Neural Networks (CNN)**
-  - [Dauphin et al. (2017): Language Modeling with Gated Convolutional Networks](https://arxiv.org/abs/1612.08083)
-  - [Gehring et al. (2017): Convolutional Sequence to Sequence Learning](https://arxiv.org/abs/1705.03122)
-  - **_New_** [Edunov et al. (2018): Classical Structured Prediction Losses for Sequence to Sequence Learning](https://arxiv.org/abs/1711.04956)
-  - **_New_** [Fan et al. (2018): Hierarchical Neural Story Generation](https://arxiv.org/abs/1805.04833)
-- **Long Short-Term Memory (LSTM) networks**
-  - [Luong et al. (2015): Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/abs/1508.04025)
-  - [Wiseman and Rush (2016): Sequence-to-Sequence Learning as Beam-Search Optimization](https://arxiv.org/abs/1606.02960)
-- **Transformer (self-attention) networks**
-  - [Vaswani et al. (2017): Attention Is All You Need](https://arxiv.org/abs/1706.03762)
-  - **_New_** [Ott et al. (2018): Scaling Neural Machine Translation](https://arxiv.org/abs/1806.00187)
+## Preprocesing
+Binary the dataset. 
 
-Fairseq features:
-- multi-GPU (distributed) training on one machine or across multiple machines
-- fast beam search generation on both CPU and GPU
-- large mini-batch training (even on a single GPU) via delayed updates
-- fast half-precision floating point (FP16) training
+```
+DATA_PATH=/path/to/data/file
+DATA_BIN=/path/to/save/data-bin
+SRC=
+TGT=
 
-We also provide [pre-trained models](#pre-trained-models) for several benchmark translation datasets.
+python preprocess.py -s $SRC -t $TGT \
+		--trainpref $DATA_PATH/train \
+		--validpref $DATA_PATH/valid \
+		--destdir $DDATA_BIN \
+		--output-format binary \
+```
 
-![Model](fairseq.gif)
+## Training new model
+
+
+```
+DATA_BIN=
+SAVE_FILE=
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6 python trian.py -data $DATA_BIN \
+		-s $SRC -t $TGT \
+		--lr 0.0005 --min-lr 1e-09 \
+		--weight-decay 0 --clip-norm 0.0 \
+		--dropout 0.3 \
+		--max-tokens 4500 \
+		--arch transformer \
+		--optimizer adam --adam-betas '(0.9, 0.98)' \
+		--warmup-updates 4000 \
+		--criterion label_smoothed_cross_entropy --label-smoothing 0.1 \
+		--save-dir $SAVE_FILE
+```
+
+NOTICES:    
+
+* if 
+
+
+
 
 # Requirements and Installation
 * A [PyTorch installation](http://pytorch.org/)
@@ -40,48 +59,6 @@ pip install -r requirements.txt
 python setup.py build
 python setup.py develop
 ```
-
-# Quick Start
-
-The following command-line tools are provided:
-* `python preprocess.py`: Data pre-processing: build vocabularies and binarize training data
-* `python train.py`: Train a new model on one or multiple GPUs
-* `python generate.py`: Translate pre-processed data with a trained model
-* `python interactive.py`: Translate raw text with a trained model
-* `python score.py`: BLEU scoring of generated translations against reference translations
-* `python eval_lm.py`: Language model evaluation
-
-## Evaluating Pre-trained Models
-First, download a pre-trained model along with its vocabularies:
-```
-$ curl https://s3.amazonaws.com/fairseq-py/models/wmt14.v2.en-fr.fconv-py.tar.bz2 | tar xvjf -
-```
-
-This model uses a [Byte Pair Encoding (BPE) vocabulary](https://arxiv.org/abs/1508.07909), so we'll have to apply the encoding to the source text before it can be translated.
-This can be done with the [apply_bpe.py](https://github.com/rsennrich/subword-nmt/blob/master/apply_bpe.py) script using the `wmt14.en-fr.fconv-cuda/bpecodes` file.
-`@@` is used as a continuation marker and the original text can be easily recovered with e.g. `sed s/@@ //g` or by passing the `--remove-bpe` flag to `generate.py`.
-Prior to BPE, input text needs to be tokenized using `tokenizer.perl` from [mosesdecoder](https://github.com/moses-smt/mosesdecoder).
-
-Let's use `python interactive.py` to generate translations interactively.
-Here, we use a beam size of 5:
-```
-$ MODEL_DIR=wmt14.en-fr.fconv-py
-$ python interactive.py \
- --path $MODEL_DIR/model.pt $MODEL_DIR \
- --beam 5
-| loading model(s) from wmt14.en-fr.fconv-py/model.pt
-| [en] dictionary: 44206 types
-| [fr] dictionary: 44463 types
-| Type the input sentence and press return:
-> Why is it rare to discover new marine mam@@ mal species ?
-O       Why is it rare to discover new marine mam@@ mal species ?
-H       -0.06429661810398102    Pourquoi est-il rare de découvrir de nouvelles espèces de mammifères marins ?
-A       0 1 3 3 5 6 6 8 8 8 7 11 12
-```
-
-This generation script produces four types of outputs: a line prefixed with *S* shows the supplied source sentence after applying the vocabulary; *O* is a copy of the original source sentence; *H* is the hypothesis along with an average log-likelihood; and *A* is the attention maxima for each word in the hypothesis, including the end-of-sentence marker which is omitted from the text.
-
-Check [below](#pre-trained-models) for a full list of pre-trained models available.
 
 ## Training a New Model
 
@@ -138,31 +115,6 @@ $ python generate.py data-bin/iwslt14.tokenized.de-en \
 To generate translations with only a CPU, use the `--cpu` flag.
 BPE continuation markers can be removed with the `--remove-bpe` flag.
 
-# Pre-trained Models
-
-We provide the following pre-trained models and pre-processed, binarized test sets:
-
-### Translation
-
-Description | Dataset | Model | Test set(s)
----|---|---|---
-Convolutional <br> ([Gehring et al., 2017](https://arxiv.org/abs/1705.03122)) | [WMT14 English-French](http://statmt.org/wmt14/translation-task.html#Download) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/wmt14.v2.en-fr.fconv-py.tar.bz2) | newstest2014: <br> [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/wmt14.v2.en-fr.newstest2014.tar.bz2) <br> newstest2012/2013: <br> [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/wmt14.v2.en-fr.ntst1213.tar.bz2)
-Convolutional <br> ([Gehring et al., 2017](https://arxiv.org/abs/1705.03122)) | [WMT14 English-German](https://nlp.stanford.edu/projects/nmt) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/wmt14.v2.en-de.fconv-py.tar.bz2) | newstest2014: <br> [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/wmt14.v2.en-de.newstest2014.tar.bz2)
-Transformer <br> ([Ott et al., 2018](https://arxiv.org/abs/1806.00187)) | [WMT14 English-French](http://statmt.org/wmt14/translation-task.html#Download) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/wmt14.en-fr.joined-dict.transformer.tar.bz2) | newstest2014 (shared vocab): <br> [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/wmt14.en-fr.joined-dict.newstest2014.tar.bz2)
-Transformer <br> ([Ott et al., 2018](https://arxiv.org/abs/1806.00187)) | [WMT16 English-German](https://drive.google.com/uc?export=download&id=0B_bZck-ksdkpM25jRUN2X2UxMm8) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/wmt16.en-de.joined-dict.transformer.tar.bz2) | newstest2014 (shared vocab): <br> [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/wmt16.en-de.joined-dict.newstest2014.tar.bz2)
-
-### Language models
-
-Description | Dataset | Model | Test set(s)
----|---|---|---
-Convolutional <br> ([Dauphin et al., 2017](https://arxiv.org/abs/1612.08083)) | [Google Billion Words](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/gbw_fconv_lm.tar.bz2) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/gbw_test_lm.tar.bz2)
-Convolutional <br> ([Dauphin et al., 2017](https://arxiv.org/abs/1612.08083)) | [WikiText-103](https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/wiki103_fconv_lm.tar.bz2) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/wiki103_test_lm.tar.bz2)
-
-### Stories
-
-Description | Dataset | Model | Test set(s)
----|---|---|---
-Stories with Convolutional Model <br> ([Fan et al., 2018](https://arxiv.org/abs/1805.04833)) | [WritingPrompts](https://arxiv.org/abs/1805.04833) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/models/stories_checkpoint.tar.bz2) | [download (.tar.bz2)](https://s3.amazonaws.com/fairseq-py/data/stories_test.tar.bz2)
 
 
 ### Usage
