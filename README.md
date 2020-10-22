@@ -1,3 +1,9 @@
+<!--
+ * @Company: Sogou MT
+ * @FilePath: /Cross-lingual-Summarization/README.md
+ * @LastEditors: Mingming-Yin
+ * @LastEditTime: 2020-10-22 23:23:40
+-->
 # Cross-Lingual Abstractive Sentence Summarization(CL-ASSUM)
 ## Introduction
 We implemented CL-ASSUM on [fairseq](https://github.com/pytorch/fairseq/). 
@@ -15,9 +21,14 @@ Please refer to [Transformer](Transformer) for more deatils.
 
 ### Teaching-Generation
 
+
 ### Teaching-Attention
 
 ### Teaching-Generation-Attention
+
+### Evaluation sets of CL-ASSUM
+
+The `test-data` file contains evaluation sets of CL-ASSUM, which is built by manual translation.
 
    
 ## Requirements and Installation
